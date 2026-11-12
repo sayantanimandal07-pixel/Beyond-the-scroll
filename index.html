@@ -88,6 +88,7 @@ footer .wrap{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between}
 <div><a href="#/explore">Explore</a> · <a href="#/categories">Categories</a> · <a href="#/contact">Contact</a></div>
 <div><a href="https://github.com" target="_blank" rel="noopener">GitHub</a> · <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a> · <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a> (replace with yours)</div></div></footer>
 
+  
 <script>
 const A=[
 {id:'romanticize',t:'The Art of Romanticizing Your Ordinary Days',c:'Lifestyle',tags:['mindfulness','routine'],d:'2026-09-28',p:94,m:5,s:'A Tuesday can feel like a film scene if you decide to notice it.',b:['I started with a chipped blue mug. Same mug, same kitchen, but one morning I sat down with it and watched the steam instead of my phone. Nothing happened, and it was lovely.','## Pick one ritual','Romanticizing is not pretending life is perfect. It is choosing a detail and giving it your full attention. Pour tea slowly. Play one album start to finish on the walk home.','## Make the setting do some work','Light a lamp instead of the ceiling bulb. Write the date on your notebook page like it matters. Small staging tells your brain this hour counts.','## Keep the ordinary ordinary','You are not curating for anyone. If a day is dull, let it be dull with good music on.']},
@@ -197,7 +198,8 @@ $('#cmf').onsubmit=e=>{e.preventDefault();const n=$('#an').value.trim(),c=$('#ac
 // progress + streak
 const done=()=>{const r=ls.g('read',[]);if(!r.includes(id))ls.s('read',[...r,id]);const td=new Date().toDateString(),y=new Date(Date.now()-864e5).toDateString(),s=ls.g('streak',{n:0,d:''});if(s.d!==td)ls.s('streak',{n:s.d===y?s.n+1:1,d:td})};
 window.onscroll=()=>{if(!location.hash.startsWith('#/article'))return;const e=$('.prose');if(!e)return;const r=e.getBoundingClientRect(),pct=Math.min(100,Math.max(0,(-r.top+innerHeight*.5)/r.height*100));$('#prog').style.width=pct+'%';ls.s('last',{id,pct});if(pct>=95)done()}}
-// Theme, menu, cursor
+
+  
 const th=ls.g('theme',matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.dataset.t=th;
 $('#theme').onclick=()=>{const n=document.documentElement.dataset.t==='dark'?'light':'dark';document.documentElement.dataset.t=n;ls.s('theme',n)};
 $('#menu').onclick=function(){const o=$('#links').classList.toggle('open');this.setAttribute('aria-expanded',o)};
