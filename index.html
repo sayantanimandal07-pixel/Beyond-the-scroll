@@ -157,7 +157,7 @@ box.innerHTML=`<p class="serif" style="font-size:1.2rem">${Q[i][0]}</p>`+Q[i][1]
 $$('button',box).forEach(b=>b.onclick=()=>{sc.push(Q[i][1][b.dataset.k][1]);i++;show()})})()}
 function nl(el){el.innerHTML=`<form novalidate style="max-width:420px"><label for="ne">Email</label><input id="ne" type="email" autocomplete="email"><div class="err"></div><button class="btn p">Subscribe</button></form><p class="sub" style="font-size:.85rem;margin-top:8px">Demo: no server is connected, so this only saves your email in this browser. No emails are sent.</p>`;
 $('form',el).onsubmit=e=>{e.preventDefault();const v=$('#ne').value.trim();if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){$('.err',el).textContent='Enter a valid email like name@example.com.';return}ls.s('subs',[...ls.g('subs',[]),v]);$('.err',el).textContent='';el.innerHTML='<p><b>Saved locally.</b> Connect a backend to send real newsletters.</p>';toast('Email saved on this device')}}
-// Explore
+
 function explore(){app.innerHTML=`<div class="wrap"><section><h1 class="serif" style="font-size:clamp(2rem,6vw,3.5rem)">Explore</h1><p class="sub">Search titles, tags and topics.</p>
 <div class="bar"><input id="q" type="search" placeholder="Search stories" aria-label="Search stories"><select id="cf" aria-label="Category"><option value="">All categories</option>${Object.keys(CATS).map(c=>`<option>${c}</option>`).join('')}</select><select id="so" aria-label="Sort"><option value="n">Newest</option><option value="p">Most popular</option><option value="s">Shortest read</option></select></div><div class="grid" id="res"></div></section></div>`;
 const pre=decodeURIComponent((location.hash.split('/')[2])||'');if(pre)$('#cf').value=pre;
@@ -174,7 +174,7 @@ $('#cf').onsubmit=e=>{e.preventDefault();const f=[$('#cn'),$('#ce'),$('#cm')],er
 const chk=[[f[0].value.trim().length>=2,'Enter your name.'],[/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f[1].value),'Enter a valid email.'],[f[2].value.trim().length>=10,'Write at least 10 characters.']];
 chk.forEach((c,i)=>{er[i].textContent=c[0]?'':c[1];if(!c[0])ok=false});if(!ok)return;
 ls.s('msgs',[...ls.g('msgs',[]),{n:f[0].value,e:f[1].value,m:f[2].value}]);e.target.reset();toast('Message saved locally (not sent)')}}
-// Article
+
 function article(id){const a=get(id);if(!a)return nf();const saved=bms().includes(id),rx=ls.g('rx:'+id,[]);let toc=[],html='';
 a.b.forEach(p=>{if(p.startsWith('## ')){const t=p.slice(3),k='s'+toc.length;toc.push([k,t]);html+=`<h2 id="${k}">${esc(t)}</h2>`}else html+=`<p>${esc(p)}</p>`});
 const rel=A.filter(x=>x.id!==id&&(x.c===a.c||x.tags.some(t=>a.tags.includes(t)))).slice(0,3);
@@ -196,7 +196,7 @@ $$('.toc a[data-k]').forEach(l=>l.onclick=e=>{e.preventDefault();document.getEle
 $$('.rx .chip').forEach(b=>b.onclick=()=>{let r=ls.g('rx:'+id,[]);const on=!r.includes(b.textContent);r=on?[...r,b.textContent]:r.filter(x=>x!==b.textContent);ls.s('rx:'+id,r);b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);if(on)toast('Thanks for the feedback')});
 const cl=()=>$('#cl').innerHTML=ls.g('c:'+id,[]).map(c=>`<div class="cm"><b>${esc(c.n)}</b> <span style="color:var(--mute);font-size:.85rem">${c.t}</span><p style="margin:4px 0">${esc(c.c)}</p></div>`).join('');cl();
 $('#cmf').onsubmit=e=>{e.preventDefault();const n=$('#an').value.trim(),c=$('#ac').value.trim();if(n.length<2||c.length<5){$('#ae').textContent='Add your name and a comment of at least 5 characters.';return}$('#ae').textContent='';ls.s('c:'+id,[{n,c,t:new Date().toLocaleDateString()},...ls.g('c:'+id,[])]);e.target.reset();cl();toast('Comment saved on this device')};
-// progress + streak
+
 const done=()=>{const r=ls.g('read',[]);if(!r.includes(id))ls.s('read',[...r,id]);const td=new Date().toDateString(),y=new Date(Date.now()-864e5).toDateString(),s=ls.g('streak',{n:0,d:''});if(s.d!==td)ls.s('streak',{n:s.d===y?s.n+1:1,d:td})};
 window.onscroll=()=>{if(!location.hash.startsWith('#/article'))return;const e=$('.prose');if(!e)return;const r=e.getBoundingClientRect(),pct=Math.min(100,Math.max(0,(-r.top+innerHeight*.5)/r.height*100));$('#prog').style.width=pct+'%';ls.s('last',{id,pct});if(pct>=95)done()}}
 
