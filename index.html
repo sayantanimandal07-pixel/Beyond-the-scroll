@@ -129,7 +129,7 @@ $$('nav a.l').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#/'+(
 const v={'':home,explore,categories,bookmarks,about,contact,article:()=>article(id)}[p||''];(v||nf)(id);window.scrollTo(0,0);app.focus({preventScroll:true})}
 const nf=()=>app.innerHTML=`<div class="wrap"><div class="empty"><h2>That page wandered off</h2><p>Check the link or head <a href="#/">home</a>.</p></div></div>`;
 addEventListener('hashchange',route);
-// Home
+
 function home(){const f=A[0],trend=[...A].sort((x,y)=>y.p-x.p).slice(0,3),recent=[...A].sort((x,y)=>y.d.localeCompare(x.d)).slice(0,6);
 const last=ls.g('last',null),streak=ls.g('streak',{n:0,d:''}),read=ls.g('read',[]);
 app.innerHTML=`<div class="hero"><div class="orb" style="width:340px;height:340px;background:var(--lav);right:-60px;top:-40px"></div><div class="orb" style="width:260px;height:260px;background:var(--blue);left:30%;bottom:-120px"></div>
